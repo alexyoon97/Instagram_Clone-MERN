@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
+.collection-item{
+  width: 100%;
+  color: black;
+}
 a{
   color: black !important;
 }

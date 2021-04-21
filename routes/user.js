@@ -90,19 +90,30 @@ router.put("/unfollow", requireLogin, (req, res) => {
   );
 });
 
-router.put('/userprofilepic',requireLogin,(req,res)=>{
-
-  User.find({_id:req.user._id}).updateOne(
-    {userProfilePic : req.body.pic}
-  )
-  .then(result =>{
-    res.json(result)
-  })
-  .catch(err=>{
-    return res.status(422).json({ error: err });
-  })
+router.put("/userprofilepic", requireLogin, (req, res) => {
+  User.find({ _id: req.user._id })
+    .updateOne({ userProfilePic: req.body.pic })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      return res.status(422).json({ error: err });
+    });
   //orUser.findByIdAndupdate...
   //{$set:{userProfilePic : req.body.pic}}
-})
+});
+
+router.post("/search-users", (req, res) => {
+  let userPattern = new RegExp("^" + req.body.query);
+  User.find({ name: { $regex: userPattern } }) //find email mathes email with regex
+    .select("-password")
+    .then((user) => {
+      console.log(user)
+      res.json({ user });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 module.exports = router;

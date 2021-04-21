@@ -10,6 +10,7 @@ router.get("/allpost", (req, res) => {
   Post.find()
     .populate("postedBy", "_id name") // expand postedBy table and select only id and name
     .populate("comments.postedBy", "_id name")
+    .sort('-createdAt') //sort the post descending order
     .then((posts) => {
       res.json({ posts });
     })
@@ -22,6 +23,7 @@ router.get("/getfollowpost",requireLogin, (req, res) => {
   Post.find({postedBy:{$in:req.user.following}})//find a postedBy in fowlling
     .populate("postedBy", "_id name") // expand postedBy table and select only id and name
     .populate("comments.postedBy", "_id name")
+    .sort('-createdAt') //sort the post descending order
     .then((posts) => {
       res.json({ posts });
     })
