@@ -105,7 +105,7 @@ router.put("/userprofilepic", requireLogin, (req, res) => {
 
 router.post("/search-users", (req, res) => {
   let userPattern = new RegExp("^" + req.body.query);
-  User.find({ name: { $regex: userPattern } }) //find email mathes email with regex
+  User.find({ email: { $regex: userPattern } }) //find email mathes email with regex
     .select("-password")
     .then((user) => {
       console.log(user)

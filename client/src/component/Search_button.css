@@ -1,0 +1,10 @@
+.search_result {
+  position: absolute;
+  box-shadow: 0 0 10px rgba(156, 156, 156, 0.335);
+  padding: 0.5vh;
+
+}
+.input-field .prefix {
+  right: 0;
+  top: 0;
+}

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import './Search_button.css'
 
 const Search_button = () => {
   const [userFilter, setUserFilter] = useState("");
@@ -23,23 +25,25 @@ const Search_button = () => {
   return (
     <>
       <div className="input-field col s6">
-        <i class="material-icons prefix">search</i>
         <input
           placeholder="Search by email"
           id="icon_prefix"
           type="text"
           class="validate"
           value={userFilter}
+          autoComplete='off'
           onChange={(e) => fetchUsers(e.target.value)}
         />
+        <i class="material-icons prefix">search</i>
+
       </div>
       <div className="search_result">
-        {userList || !userFilter.length == 0 ? (
+        {userList && userFilter.length > 0 ? (
           userList.map((user) => {
-            return <div>{user.email}</div>;
+            return <Link to={'/profile/' + user._id} onClick={()=>setUserFilter('')}>{user.email}</Link>;
           })
         ) : (
-          <div>...loading</div>
+          <div></div>
         )}
       </div>
     </>
